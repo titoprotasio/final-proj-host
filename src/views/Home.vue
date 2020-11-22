@@ -1,11 +1,16 @@
 <template>
   <div class="home">
-    <input type="text" v-model="youtubeLink" id="youtubeLink" placeholder='Insert YouTube Link'>
+    <input
+      type="text"
+      v-model="youtubeLink"
+      id="youtubeLink"
+      placeholder="Insert YouTube Link"
+    />
     <label for="color">Background Baby</label>
-    <input type="color" v-model="color" name="color" id="color">
+    <input type="color" v-model="color" name="color" id="color" />
     <p>{{ color }}</p>
     <button @click="postLink">Submit</button>
-    <p v-if="error" style="color: #ff0000">{{error}}</p>
+    <p v-if="error" style="color: #ff0000">{{ error }}</p>
     <p v-if="resp" v-bind:style="{ color: color }">
       <a :href="'/player/' + resp.insertId">Visit Page</a>
     </p>
@@ -13,30 +18,31 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
-      youtubeLink: '',
-      color: '#000000',
+      youtubeLink: "",
+      color: "#000000",
       error: null,
       resp: null
-    }
+    };
   },
   methods: {
     postLink() {
-      axios.post('http://localhost:3000/video', {
-        youtubeLink: this.youtubeLink,
-        color: this.color
-      })
-      .then((res) => {
-        this.resp = res.data;
-      })
-      .catch((err) => {
-        this.err = err;
-      })
+      axios
+        .post("http://134.122.29.64:5123/video", {
+          youtubeLink: this.youtubeLink,
+          color: this.color
+        })
+        .then(res => {
+          this.resp = res.data;
+        })
+        .catch(err => {
+          this.err = err;
+        });
     }
   }
-}
+};
 </script>
